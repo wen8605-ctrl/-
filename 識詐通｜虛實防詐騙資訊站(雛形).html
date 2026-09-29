@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>識詐通｜虛實防詐騙資訊站(雛形)</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f6f9;--card:#fff;--ink:#14213d;--mute:#5b6577;--navy:#123a6b;--alert:#c8372d;--amber:#f2a900;--line:#dde3ec;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1522;--card:#17202f;--ink:#eef2f8;--mute:#9aa6ba;--navy:#7fb0ee;--line:#293449}}
+:root[data-theme="dark"]{--bg:#0e1522;--card:#17202f;--ink:#eef2f8;--mute:#9aa6ba;--navy:#7fb0ee;--line:#293449}
+*{box-sizing:border-box}html{scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 "Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
+a{color:inherit}.w{max-width:1080px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:0;background:var(--card);border-bottom:1px solid var(--line);z-index:9}
+header .w{display:flex;align-items:center;justify-content:space-between;height:56px;gap:12px}
+.logo{font-weight:900;font-size:19px;color:var(--navy);text-decoration:none}
+nav{display:flex;gap:18px;font-size:14px;overflow-x:auto}nav a{text-decoration:none;color:var(--mute);white-space:nowrap}nav a:hover{color:var(--ink)}
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:340px}
+.hero>div{padding:48px 32px;display:flex;flex-direction:column;justify-content:center}
+.real{background:var(--navy);color:#fff}.virt{background:var(--ink);color:var(--bg)}
+.hero small{opacity:.75;font-size:14px}.hero h2{font-size:clamp(24px,3.4vw,38px);line-height:1.3;margin:6px 0 10px;font-weight:900}
+.hero p{margin:0;opacity:.85;max-width:30ch}
+.bridge{background:var(--amber);color:#1b1b1b;text-align:center;padding:14px 20px;font-weight:700}
+.bridge b{font-size:22px}
+h3.t{font-size:26px;margin:56px 0 6px}.sub{color:var(--mute);margin:0 0 22px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.tabs button{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 18px;border-radius:999px;cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--navy);color:#fff;border-color:var(--navy)}
+:root[data-theme=dark] .tabs button[aria-selected=true]{color:#0e1522}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.c{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--navy);padding:16px 18px;border-radius:4px}
+.c.h{border-left-color:var(--alert)}.c h4{margin:0 0 4px;font-size:17px}.c p{margin:0;color:var(--mute);font-size:14px}
+.c em{font-style:normal;font-size:13px;color:var(--alert);display:block;margin-top:8px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.s{background:var(--card);border:1px solid var(--line);padding:22px;border-radius:4px}.s b{font-size:30px;color:var(--alert);font-weight:900}
+.s h4{margin:4px 0}.s p{margin:0;color:var(--mute);font-size:14px}
+.act{counter-reset:a;list-style:none;padding:0;margin:0}
+.act li{counter-increment:a;background:var(--card);border:1px solid var(--line);padding:14px 16px 14px 56px;margin-bottom:8px;position:relative;border-radius:4px}
+.act li:before{content:counter(a);position:absolute;left:14px;top:12px;width:30px;height:30px;border-radius:50%;background:var(--alert);color:#fff;text-align:center;line-height:30px;font-weight:700}
+.chk{background:var(--card);border:1px solid var(--line);padding:22px;border-radius:4px}
+.chk form,.chk div.f{display:flex;gap:8px;flex-wrap:wrap}
+.chk input{flex:1;min-width:200px;font:inherit;padding:11px 14px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink)}
+.chk button{font:inherit;font-weight:700;background:var(--alert);color:#fff;border:0;padding:11px 24px;border-radius:4px;cursor:pointer}
+#res{margin:12px 0 0;color:var(--mute);font-size:14px}
+.hot{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.hot a{background:var(--card);border:1px solid var(--line);padding:18px;text-decoration:none;border-radius:4px}
+.hot b{display:block;font-size:34px;font-weight:900;color:var(--alert);line-height:1.1}
+footer{margin-top:64px;background:var(--ink);color:var(--bg);padding:26px 0;font-size:13px}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+@media(max-width:720px){.hero,.steps{grid-template-columns:1fr}.hero>div{padding:32px 22px}}
+</style>
+</head>
+<body>
+<header><div class="w"><a class="logo" href="#">識詐通</a>
+<nav><a href="#types">詐騙手法</a><a href="#stop">停看聽</a><a href="#help">被騙了怎麼辦</a><a href="#check">查證</a><a href="#hot">專線</a></nav></div></header>
+
+<section class="hero" aria-label="虛實詐騙">
+<div class="real"><small>實體世界</small><h2>敲門、來電、走在路上,也會遇到</h2><p>假檢警、假銀行員、面交、寄放存摺與提款卡。</p></div>
+<div class="virt"><small>網路世界</small><h2>一則訊息、一個連結、一個好友</h2><p>假投資群組、釣魚簡訊、交友戀愛、購物與解除分期。</p></div>
+</section>
+<div class="bridge"><b>虛實結合</b>:網路引流,電話施壓,最後派人面交或指示轉帳。任何一環都可以停下來。</div>
+
+<main class="w">
+<h3 class="t" id="types">常見詐騙手法</h3><p class="sub">依接觸管道分類,點選查看特徵與辨識重點(內容為示意)。</p>
+<div class="tabs" role="tablist" id="tabs"></div><div class="grid" id="cards"></div>
+
+<h3 class="t" id="stop">遇到可疑狀況:停、看、聽</h3>
+<div class="steps">
+<div class="s"><b>停</b><h4>先不轉帳、不給資料</h4><p>對方催促、要你保密,就是警訊。</p></div>
+<div class="s"><b>看</b><h4>看來源是否真的官方</h4><p>自行查官網或撥官方電話,不點對方給的連結。</p></div>
+<div class="s"><b>聽</b><h4>聽聽家人與 165</h4><p>把對話告訴信任的人,或直接撥 165 諮詢。</p></div></div>
+
+<h3 class="t" id="help">已經被騙了怎麼辦</h3>
+<ol class="act">
+<li><b>立即停止匯款</b>,並聯絡銀行通報止付。</li>
+<li><b>保留證據</b>:對話截圖、帳號、網址、轉帳紀錄。</li>
+<li><b>撥打 165</b> 或 110 報案,依指示製作筆錄。</li>
+<li><b>更改帳密</b>,檢查是否還有其他帳戶遭盜用。</li></ol>
+
+<h3 class="t" id="check">可疑電話與網址查證</h3>
+<div class="chk"><div class="f"><input id="q" placeholder="輸入電話號碼或網址" aria-label="查證內容"><button id="go" type="button">查詢</button></div>
+<p id="res">雛形階段:尚未串接資料庫,僅示範互動流程。</p></div>
+
+<h3 class="t" id="hot">專線</h3>
+<div class="hot"><a href="tel:165"><b>165</b>反詐騙諮詢專線</a><a href="tel:110"><b>110</b>報案專線</a><a href="tel:113"><b>113</b>保護專線</a></div>
+</main>
+<footer><div class="w">識詐通為設計雛形,內容與資料為示意,正式上線前須經權責機關審核。</div></footer>
+
+<script>
+var D={"傳統手法":[["假冒檢警","來電稱涉案,要求配合偵查、監管帳戶。","警察不會電話要求轉帳"],["假冒親友借錢","來電猜猜我是誰,急需周轉。","先撥回原號碼確認"],["提款卡/存摺收購","以租借或高薪為由要你交出帳戶。","帳戶出借即可能成為人頭"],["面交詐騙","要求現金面交投資款或保證金。","不與陌生人面交現金"]],
+"網路手法":[["釣魚簡訊","冒充物流、電信、政府,附假網址。","不點簡訊連結"],["假投資群組","名師帶單、保證獲利,誘導入金。","保證獲利就是詐騙"],["交友戀愛詐騙","建立感情後以各種理由借錢。","未見面就談錢要警覺"],["假購物與解除分期","客服來電稱誤設分期,要你操作ATM。","ATM 無法解除設定"]],
+"虛實結合":[["網路引流+電話施壓","先在網路填資料,再由假客服/假檢警來電。","資料外洩後常被串接利用"],["投資詐騙+面交","群組帶入投資,最後派車手收現金。","匯款或面交都要停"],["盜用帳號+偽造身分","社群帳號被盜,向好友借錢。","用電話直接向本人確認"],["偽官網+實體收款","偽造官網,引導至超商或路邊交付款項。","付款前核對官方網域"]]};
+var k=Object.keys(D),t=document.getElementById("tabs"),c=document.getElementById("cards");
+function show(n){[].forEach.call(t.children,function(b){b.setAttribute("aria-selected",b.textContent==n)});
+c.innerHTML=D[n].map(function(x){return '<div class="c'+(n=="虛實結合"?' h':'')+'"><h4>'+x[0]+'</h4><p>'+x[1]+'</p><em>'+x[2]+'</em></div>'}).join("")}
+k.forEach(function(n){var b=document.createElement("button");b.textContent=n;b.setAttribute("role","tab");b.onclick=function(){show(n)};t.appendChild(b)});show(k[0]);
+document.getElementById("go").onclick=function(){var v=document.getElementById("q").value.trim();
+document.getElementById("res").textContent=v?"「"+v+"」尚無資料庫可比對。若已有疑慮,請直接撥打 165 查證。":"請先輸入電話號碼或網址。"};
+</script>
+</body>
+</html>
